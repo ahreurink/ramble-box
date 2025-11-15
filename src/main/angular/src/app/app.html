@@ -1,0 +1,57 @@
+<!-- Root container -->
+<div class="app-root">
+  <!-- Top Metrics Bar -->
+  <header class="topbar">
+    <div class="metrics">
+      <div class="metric">
+        <span class="label">Session Tokens</span>
+        <span class="value">{{ tokenStats().session | number }}</span>
+      </div>
+      <div class="metric">
+        <span class="label">Last Call Tokens</span>
+        <span class="value">{{ tokenStats().lastCall | number }}</span>
+      </div>
+    </div>
+
+    <div class="gauge">
+      <div class="gauge-bar">
+        <div class="gauge-fill" [style.width.%]="lastCallPct()"></div>
+      </div>
+      <div class="gauge-text">
+        {{ tokenStats().lastCall }}/{{ lastCallSoftLimit }}
+      </div>
+    </div>
+  </header>
+
+  <!-- Main content -->
+  <main class="mainpane">
+    <section class="ramblebox-card">
+      <textarea
+        class="ramblebox"
+        [ngModel]="ramble()"
+        (ngModelChange)="ramble.set($event)"
+        placeholder="Start rambling here..."
+      ></textarea>
+
+      <div class="actions">
+        <button class="primary" (click)="onTranslate()" [disabled]="!ramble().trim()">Translate → GitHub Ticket</button>
+        <button class="ghost" (click)="onClear()">Clear</button>
+      </div>
+    </section>
+  </main>
+
+  <!-- Logs / Feedback Pane (fixed 1/3 height) -->
+  <footer class="logpane">
+    <div class="logheader">
+      <span>Feedback / Logs</span>
+      <button class="ghost sm" (click)="logs.set([])">Clear Logs</button>
+    </div>
+
+    <div class="logstream">
+      <div *ngIf="logs().length === 0" class="log-empty">No logs yet…</div>
+      <div *ngFor="let entry of logs(); let i = index" class="logline">
+        {{ entry }}
+      </div>
+    </div>
+  </footer>
+</div>
