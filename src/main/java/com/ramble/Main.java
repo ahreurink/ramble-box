@@ -13,18 +13,17 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.embabel.template;
+package com.ramble;
 
 import com.embabel.agent.config.annotation.EnableAgents;
-import com.embabel.agent.config.annotation.LoggingThemes;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 
 @SpringBootApplication
 @EnableAgents//(loggingTheme = LoggingThemes.STAR_WARS)
-class ProjectNameApplication {
+class Main {
     public static void main(String[] args) {
-        SpringApplication.run(ProjectNameApplication.class, args);
+        SpringApplication.run(Main.class, args);
     }
 }

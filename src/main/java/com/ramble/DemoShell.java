@@ -1,10 +1,10 @@
-package com.embabel.template;
+package com.ramble;
 
 import com.embabel.agent.api.common.autonomy.AgentInvocation;
 import com.embabel.agent.core.AgentPlatform;
 import com.embabel.agent.domain.io.UserInput;
-import com.embabel.template.agent.WriteAndReviewAgent;
-import com.embabel.template.injected.InjectedDemo;
+import com.ramble.agent.WriteAndReviewAgent;
+import com.ramble.injected.InjectedDemo;
 import org.springframework.shell.standard.ShellComponent;
 import org.springframework.shell.standard.ShellMethod;
 

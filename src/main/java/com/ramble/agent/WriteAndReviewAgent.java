@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.embabel.template.agent;
+package com.ramble.agent;
 
 import com.embabel.agent.api.annotation.AchievesGoal;
 import com.embabel.agent.api.annotation.Action;
@@ -74,10 +74,10 @@ public class WriteAndReviewAgent {
             return String.format("""
                             # Story
                             %s
-                            
+
                             # Review
                             %s
-                            
+
                             # Reviewer
                             %s, %s
                             """,
@@ -114,10 +114,10 @@ public class WriteAndReviewAgent {
                                 Review it in %d words or less.
                                 Consider whether or not the story is engaging, imaginative, and well-written.
                                 Also consider whether the story is appropriate given the original user input.
-                                
+
                                 # Story
                                 %s
-                                
+
                                 # User input that inspired the story
                                 %s
                                 """,
@@ -147,7 +147,7 @@ public class WriteAndReviewAgent {
                                 The story should be engaging and imaginative.
                                 Use the user's input as inspiration if possible.
                                 If the user has provided a name, include it in the story.
-                                
+
                                 # User input
                                 %s
                                 """,

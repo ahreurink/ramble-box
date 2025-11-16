@@ -1,4 +1,4 @@
-package com.embabel.template.injected;
+package com.ramble.injected;
 
 import com.embabel.agent.api.common.Ai;
 import jakarta.validation.constraints.Pattern;
