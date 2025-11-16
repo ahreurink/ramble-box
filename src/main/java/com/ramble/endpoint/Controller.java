@@ -1,28 +1,45 @@
 package com.ramble.endpoint;
 
+import com.embabel.agent.domain.io.UserInput;
+import com.ramble.agents.TicketAgent;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Map;
 
 @RestController
 public class Controller {
+  Logger logger = LoggerFactory.getLogger(Controller.class);
 
-    @GetMapping("/ramble")
-    public String ramble(@RequestBody String body) {
-      System.out.println(body);
-      return "Hello, world!";
-    }
+  private final TicketAgent ticketAgent;
+
+  @Autowired
+  public Controller(TicketAgent ticketAgent) {
+    this.ticketAgent = ticketAgent;
+  };
+
+  @GetMapping("/ramble")
+  public String ramble(@RequestBody (required = false) String body) {
+    logger.info("Received get body \"{}\"", body);
+    return "Hello, world!";
+  }
 
   @CrossOrigin
   @PostMapping(value = "/ramble", consumes = "text/plain", produces = "application/json")
   public Map<String, String> processText(@RequestBody String body) {
-      System.out.println("Post: " + body);
-      // Trim and create a short preview
-      String preview = body.length() > 50 ? body.substring(0, 50) + "..." : body;
-      return Map.of(
-        "status", "received",
-        "length", String.valueOf(body.length()),
-        "preview", preview
-      );
+    logger.trace("Received ramble text \"{}\"", body);
+
+    var ticket = ticketAgent.createTicket(new UserInput(body));
+    logger.info("Created ticket: \n{}", ticket.toString());
+
+    // Trim and create a short preview
+    String preview = body.length() > 50 ? body.substring(0, 50) + "..." : body;
+    return Map.of(
+      "status", "received",
+      "length", String.valueOf(body.length()),
+      "preview", preview
+    );
   }
 }
