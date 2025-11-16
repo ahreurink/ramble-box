@@ -13,3 +13,4 @@ embabel-agent-api/src/main/resources/mcp/**
 **/*.log
 
 **/node_modules
+src/main/angular/.angular
