@@ -15,6 +15,11 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 class TicketAgentTest {
 
     @Test
+    void listTickets(){
+
+    }
+
+    @Test
     void testCreateTicket()  {
         var context = FakeOperationContext.create();
         var promptRunner = (FakePromptRunner) context.promptRunner();

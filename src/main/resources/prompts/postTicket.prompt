@@ -1,0 +1,6 @@
+Create a new ticket in Github. Not a comment! A new ticket. Use Issues.issue_write
+method = "create"
+title = "%s"
+body = "%s"
+
+%s

@@ -32,13 +32,14 @@ public class Controller {
     logger.trace("Received ramble text \"{}\"", body);
 
     var ticket = ticketAgent.createTicket(new UserInput(body));
-    logger.info("Created ticket: \n{}", ticket.toString());
+    Boolean creationSucceeded = ticketAgent.postTicket(ticket);
 
     // Trim and create a short preview
-    String preview = body.length() > 50 ? body.substring(0, 50) + "..." : body;
+    String preview = ticket.body().length() > 50 ? ticket.body().substring(0, 50) + "..." : ticket.body();
     return Map.of(
-      "status", "received",
+      "status", creationSucceeded.toString(),
       "length", String.valueOf(body.length()),
+      "title", ticket.title(),
       "preview", preview
     );
   }
