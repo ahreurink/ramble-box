@@ -15,12 +15,12 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 class TicketAgentTest {
 
     @Test
-    void listTickets(){
+    void listTickets() {
 
     }
 
     @Test
-    void testCreateTicket()  {
+    void testCreateTicket() {
         var context = FakeOperationContext.create();
         var promptRunner = (FakePromptRunner) context.promptRunner();
         context.expectResponse(new TicketAgent.Ticket("Test API", "The response should be correct"));
@@ -29,10 +29,10 @@ class TicketAgentTest {
         agent.createTicket(new UserInput("Test that sh*t", Instant.now()));
 
         var prompt = promptRunner.getLlmInvocations()
-          .getFirst()
-          .getMessages()
-          .getFirst()
-          .getContent();
+            .getFirst()
+            .getMessages()
+            .getFirst()
+            .getContent();
         assertTrue(prompt.contains("sh*t"), String.format("Expected prompt to contain the SUT. Was: %s", prompt));
     }
 }
