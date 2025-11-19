@@ -1,0 +1,21 @@
+<!--<div *ngIf="show()"-->
+<!--     class="loading-ring"-->
+<!--     aria-label="Loading"-->
+<!--     role="status">-->
+<!--</div>-->
+<div class ="ramble-box">
+    <section class="ramblebox-card">
+        <textarea
+            class="ramblebox"
+            [ngModel]="ramble()"
+            (ngModelChange)="ramble.set($event)"
+            placeholder="Start rambling here..."
+        ></textarea>
+        <div class="actions">
+            <button class="primary" (click)="onTranslate()"
+                [disabled]="!ramble().trim()">Translate → GitHub Ticket
+            </button>
+            <button class="ghost" (click)="onClear()">Clear</button>
+        </div>
+    </section>
+</div>

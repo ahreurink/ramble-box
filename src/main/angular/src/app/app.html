@@ -25,19 +25,7 @@
 
   <!-- Main content -->
   <main class="mainpane">
-    <section class="ramblebox-card">
-      <textarea
-        class="ramblebox"
-        [ngModel]="ramble()"
-        (ngModelChange)="ramble.set($event)"
-        placeholder="Start rambling here..."
-      ></textarea>
-
-      <div class="actions">
-        <button class="primary" (click)="onTranslate()" [disabled]="!ramble().trim()">Translate → GitHub Ticket</button>
-        <button class="ghost" (click)="onClear()">Clear</button>
-      </div>
-    </section>
+      <ramble-box></ramble-box>
   </main>
 
   <!-- Logs / Feedback Pane (fixed 1/3 height) -->

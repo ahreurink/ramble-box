@@ -1,0 +1,63 @@
+.ramblebox-card {
+  background: #fff;
+  border: 1px solid #e5e7eb;
+  border-radius: 0.75rem;
+  padding: 1rem;
+  height: 92%;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.ramblebox {
+  flex: 1 1 auto;
+  width: 98%;
+  resize: none;
+  border: 1px solid #e5e7eb;
+  border-radius: 0.5rem;
+  padding: 0.75rem;
+  font-size: 1.125rem;
+  line-height: 1.5;
+  background: #fafafa;
+}
+
+.ramble-box {
+  height: 58dvh; /* mobile-safe viewport height */
+  flex: 1 1 auto;
+  padding: 1rem;
+  overflow: auto;
+}
+
+.actions {
+  display: flex;
+  gap: 0.5rem;
+  justify-content: flex-end;
+}
+
+button {
+  border: 0;
+  cursor: pointer;
+  border-radius: 0.625rem;
+  padding: 0.6rem 0.9rem;
+  font-weight: 600;
+}
+button.primary {
+  background: #111827; /* gray-900 */
+  color: white;
+}
+button.ghost {
+  background: transparent;
+  color: #111827;
+  border: 1px solid #e5e7eb;
+}
+
+.loading-ring {
+  --size: 48px; --speed: 1s; --thickness: 3px;
+  width: var(--size); height: var(--size); display: inline-block;
+  border: var(--thickness) solid transparent;
+  border-top-color: currentColor; border-right-color: currentColor;
+  border-radius: 50%;
+  animation: spin var(--speed) linear infinite;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+@media (prefers-reduced-motion: reduce) { .loading-ring { animation: none; } }
