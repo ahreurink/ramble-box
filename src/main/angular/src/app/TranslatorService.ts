@@ -14,9 +14,9 @@ export class TranslatorService {
 
   // Replace with real call to your backend / LLM
   translate(ramble: string): { issues: string[]; tokensUsed: number } {
-    //let res = this.post_ramble(ramble);
+    let res = this.post_ramble(ramble);
 
-    let res = { length: "107", status: "true", preview: "Develop a mock backend service that simulates LLM ...", title: "Create a Mock Backend for LLM Integration Testing" }
+//     let res = { length: "107", status: "true", preview: "Develop a mock backend service that simulates LLM ...", title: "Create a Mock Backend for LLM Integration Testing" }
     console.log(res);
 
     const tokens = Math.ceil(ramble.trim().split(/\s+/).filter(Boolean).length * 1.3);
