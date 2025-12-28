@@ -66,53 +66,72 @@
     </dependencies>
 
     <build>
+        <resources>
+            <!-- keep default resources too -->
+            <resource>
+                <directory>src/main/resources</directory>
+            </resource>
+
+            <!-- extra arbitrary folder -> classpath:/static/ -->
+            <resource>
+                <directory>${project.basedir}/target/</directory>
+                <targetPath>static</targetPath>       <!-- put files under classpath:/static -->
+                <filtering>false</filtering>
+                <includes>
+                    <include>**/*</include>
+                </includes>
+            </resource>
+        </resources>
+
+
         <plugins>
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
             </plugin>
 
-<!--            <plugin>-->
-<!--                <groupId>com.github.eirslett</groupId>-->
-<!--                <artifactId>frontend-maven-plugin</artifactId>-->
-<!--                <version>1.15.0</version>-->
-<!--                <configuration>-->
-<!--                    <workingDirectory>.</workingDirectory>-->
-<!--                </configuration>-->
-<!--                <executions>-->
-<!--                    <execution>-->
-<!--                        <id>npm ci</id>-->
-<!--                        <goals><goal>npm</goal></goals>-->
-<!--                        <configuration><arguments>ci</arguments></configuration>-->
-<!--                    </execution>-->
-<!--                    <execution>-->
-<!--                        <id>ng build</id>-->
-<!--                        <goals><goal>npm</goal></goals>-->
-<!--                        <configuration><arguments>run build &#45;&#45; &#45;&#45;configuration production</arguments></configuration>-->
-<!--                    </execution>-->
-<!--                </executions>-->
-<!--            </plugin>-->
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>exec-maven-plugin</artifactId>
+                <version>3.1.0</version>
+                <executions>
+                    <execution>
+                        <id>run-script</id>
+                        <phase>generate-resources</phase>
+                        <goals>
+                            <goal>exec</goal>
+                        </goals>
+                        <configuration>
+                            <executable>bash</executable>
+                            <arguments>
+                                <argument>../../../scripts/build-angular.sh</argument>
+                                <argument>${project.basedir}</argument>
+                            </arguments>
+                            <workingDirectory>${project.basedir}/src/main/angular</workingDirectory>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
 
-<!--            <plugin>-->
-<!--                <artifactId>maven-resources-plugin</artifactId>-->
-<!--                <version>3.3.1</version>-->
-<!--                <executions>-->
-<!--                    <execution>-->
-<!--                        <id>copy-ui</id>-->
-<!--                        <phase>process-resources</phase>-->
-<!--                        <goals><goal>copy-resources</goal></goals>-->
-<!--                        <configuration>-->
-<!--                            <outputDirectory>${project.build.outputDirectory}/static</outputDirectory>-->
-<!--                            <resources>-->
-<!--                                <resource>-->
-<!--                                    <directory>../ui/dist/ui/browser</directory>-->
-<!--                                </resource>-->
-<!--                            </resources>-->
-<!--                        </configuration>-->
-<!--                    </execution>-->
-<!--                </executions>-->
-<!--            </plugin>-->
-
+            <plugin>
+                <artifactId>maven-resources-plugin</artifactId>
+                <version>3.3.1</version>
+                <executions>
+                    <execution>
+                        <id>copy-ui</id>
+                        <phase>process-resources</phase>
+                        <goals><goal>copy-resources</goal></goals>
+                        <configuration>
+                            <outputDirectory>${project.build.outputDirectory}/static</outputDirectory>
+                            <resources>
+                                <resource>
+                                    <directory>${project.build.directory}/browser</directory>
+                                </resource>
+                            </resources>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
         </plugins>
     </build>
 

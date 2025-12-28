@@ -1,7 +1,7 @@
 #
 # BUILD STAGE
 #
-FROM maven:3.9.12-eclipse-temurin-25-alpine AS build
+FROM maven:3.9.12-eclipse-temurin-25-alpine AS build-base
 
 ARG OPENAI_API_KEY
 
