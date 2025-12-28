@@ -1,14 +1,9 @@
-DOCKER_IMAGE=ramble-box:latest
+DOCKER_IMAGE=ramble-box:latest-$(date +%Y-%m-%d_%H-%M-%S)
 DOCKER_IMAGE_FILE=ramble-box.latest.tar
 DOCKER_CONTAINER=ramble-box
 
 SSH_COMMAND="ssh $RB_USER@$RB_HOST"
 
-cd src/main/angular
-ng build --output-path ../resources/static/
-mv ../resources/static/browser/* ../resources/static/
-rm ../resources/static/browser
-cd ../../..
 mvn -DskipTests clean package
 docker build --tag $DOCKER_IMAGE .
 
