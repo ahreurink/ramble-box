@@ -8,6 +8,7 @@ import com.embabel.agent.prompt.persona.RoleGoalBackstory;
 import com.embabel.common.ai.model.LlmOptions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Component;
 
 import java.io.IOException;
@@ -32,12 +33,13 @@ abstract class TicketPersonas {
 public class TicketAgent {
     Logger logger = LoggerFactory.getLogger(TicketAgent.class);
 
-    static final Path promptPath = Path.of("src", "main", "resources", "prompts");
+    static final Path promptPath = Path.of(new ClassPathResource("prompts").getPath());
 
     private final Ai ai;
 
     TicketAgent(Ai ai) {
         this.ai = ai;
+        getDraftTicketPrompt();
     }
 
     private PromptRunner getPromptRunner() {
@@ -80,21 +82,25 @@ public class TicketAgent {
         return succeeded;
     }
 
-    private String getDraftTicketPrompt() {
-        try {
-            return Files.readString(promptPath.resolve("draftTicket.prompt"));
+    private String getFileContent(String file) {
+        var cl = getClass().getResource(file);
+        if(cl == null) {
+            logger.error("File {} is not available. Resulting to default prompt", file);
+            return "Draft me a ticket text. Put in the title \"DEFAULT PROMPT!!\" %s";
+        }
+        try (var is = cl.openStream()){
+            return new String(is.readAllBytes());
         } catch (IOException e) {
-            logger.error("File {} is not available. Resulting to default prompt", promptPath);
+            logger.error("File {} is not available. Resulting to default prompt", file);
             return "Draft me a ticket text. Put in the title \"DEFAULT PROMPT!!\" %s";
         }
     }
 
+    private String getDraftTicketPrompt() {
+        return getFileContent("/prompts/draftTicket.prompt");
+    }
+
     private String getPostTicketPrompt() {
-        try {
-            return Files.readString(promptPath.resolve("postTicket.prompt"));
-        } catch (IOException e) {
-            logger.error("File {} is not available. Resulting to default prompt", promptPath);
-            return "Try to create a ticket. Put in the title \"DEFAULT PROMPT!!\" %s %s %s";
-        }
+        return getFileContent("/prompts/postTicket.prompt");
     }
 }
