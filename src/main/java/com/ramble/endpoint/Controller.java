@@ -30,10 +30,8 @@ public class Controller {
     public Map<String, String> processText(@RequestBody String body) {
         logger.trace("Received ramble text \"{}\"", body);
 
-        //var ticket = ticketAgent.createTicket(new UserInput(body));
-        var ticket = new TicketAgent.Ticket("Test", "Example body");
-        //Boolean creationSucceeded = ticketAgent.postTicket(ticket);
-        Boolean creationSucceeded = false;
+        var ticket = ticketAgent.createTicket(new UserInput(body));
+        Boolean creationSucceeded = ticketAgent.postTicket(ticket);
 
         // Trim and create a short preview
         String preview = ticket.body().length() > 50 ? ticket.body().substring(0, 50) + "..." : ticket.body();
