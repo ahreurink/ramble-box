@@ -20,12 +20,9 @@ public class Controller {
         this.ticketAgent = ticketAgent;
     }
 
-    ;
-
-    @GetMapping("/ramble")
-    public String ramble(@RequestBody(required = false) String body) {
-        logger.info("Received get body \"{}\"", body);
-        return "Hello, world!";
+    @RequestMapping(value = {"/{path:[^\\.]*}"}) //, "/**/{path:[^\\.]*}"})
+    public String forward() {
+        return "forward:/";
     }
 
     @CrossOrigin
@@ -33,8 +30,10 @@ public class Controller {
     public Map<String, String> processText(@RequestBody String body) {
         logger.trace("Received ramble text \"{}\"", body);
 
-        var ticket = ticketAgent.createTicket(new UserInput(body));
-        Boolean creationSucceeded = ticketAgent.postTicket(ticket);
+        //var ticket = ticketAgent.createTicket(new UserInput(body));
+        var ticket = new TicketAgent.Ticket("Test", "Example body");
+        //Boolean creationSucceeded = ticketAgent.postTicket(ticket);
+        Boolean creationSucceeded = false;
 
         // Trim and create a short preview
         String preview = ticket.body().length() > 50 ? ticket.body().substring(0, 50) + "..." : ticket.body();

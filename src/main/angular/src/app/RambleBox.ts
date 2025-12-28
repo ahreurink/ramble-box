@@ -25,9 +25,7 @@ export class RambleBox {
         console.log("Clicked send without any text present")
         return;
       }
-      let res = this.svc.translate(text);
-
-      console.log(res);
+      this.svc.translate(text);
 
       this.ramble.set('');
     }
