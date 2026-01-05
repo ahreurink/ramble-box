@@ -1,10 +1,7 @@
 package com.ramble.agents;
 
-import com.embabel.agent.api.common.autonomy.AgentInvocation;
 import com.embabel.agent.core.CoreToolGroups;
-import com.embabel.agent.core.ToolGroup;
 import com.embabel.agent.core.ToolGroupRequirement;
-import com.embabel.agent.domain.io.UserInput;
 import com.embabel.agent.testing.integration.EmbabelMockitoIntegrationTest;
 import com.ramble.Main;
 import org.junit.jupiter.api.Test;
@@ -44,7 +41,6 @@ class TicketAgentIntegrationTest extends EmbabelMockitoIntegrationTest {
     @Test
     void shouldExecuteCompleteWorkflow() {
         String rambletext = "Shoudn't this be tested?";
-        var ramble = new UserInput(rambletext);
         var ticket = new TicketAgent.Ticket("Add proper test", "Integration test should work");
 
         whenCreateObject(prompt -> prompt.contains("sent you a ramble"), TicketAgent.Ticket.class)

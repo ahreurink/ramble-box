@@ -12,11 +12,7 @@ import com.embabel.agent.prompt.persona.RoleGoalBackstory;
 import com.embabel.common.ai.model.LlmOptions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.core.io.ClassPathResource;
-import org.springframework.stereotype.Component;
-
 import java.io.IOException;
-import java.nio.file.Path;
 
 abstract class TicketPersonas {
     static final RoleGoalBackstory CURATOR = RoleGoalBackstory
@@ -33,8 +29,6 @@ abstract class TicketPersonas {
 @Agent(description = "Write cohesive ticket and post to Github")
 public class TicketAgent {
     Logger logger = LoggerFactory.getLogger(TicketAgent.class);
-
-    static final Path promptPath = Path.of(new ClassPathResource("prompts").getPath());
 
     private final Ai ai;
 
@@ -66,17 +60,6 @@ public class TicketAgent {
         return getPromptRunner()
             .createObject(String.format(getDraftTicketPrompt(), ramble.getContent()),
                 Ticket.class);
-    }
-
-    public void listTickets() {
-        String response = ai
-            .withLlm(LlmOptions.withAutoLlm())
-            .withId("ticket-maker")
-            .withPromptContributor(TicketPersonas.CURATOR)
-            .withToolGroup(CoreToolGroups.GITHUB)
-            .generateText(String.format("list_issues\n %s", repo));
-
-        logger.info("Ticket list = \"{}\"", response);
     }
 
     @Action
