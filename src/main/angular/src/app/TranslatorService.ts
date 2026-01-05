@@ -20,7 +20,6 @@ export class TranslatorService {
   private apiBaseUrl = `${window.location.protocol}//${window.location.hostname}:8080`;
   private API_URL = `${this.apiBaseUrl}/ramble`;
 
-  // Replace with real call to your backend / LLM
     translate(ramble: string) {
     this.post_ramble(ramble);
 

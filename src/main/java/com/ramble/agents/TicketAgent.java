@@ -12,7 +12,6 @@ import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Component;
 
 import java.io.IOException;
-import java.nio.file.Files;
 import java.nio.file.Path;
 
 abstract class TicketPersonas {
@@ -26,8 +25,6 @@ abstract class TicketPersonas {
 
 /**
  * Ticket agent
- *
- * @param ai Embabel AI helper, injected by Spring
  */
 @Component
 public class TicketAgent {
