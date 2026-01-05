@@ -46,7 +46,7 @@ public class TicketAgent {
     private PromptRunner getPromptRunner() {
         return ai
             .withLlm(LlmOptions.withAutoLlm())
-            .withId("ticket-maker")
+            //.withId("ticket-maker") Not supported in Mock prompt runner
             .withPromptContributor(TicketPersonas.CURATOR);
     }
 

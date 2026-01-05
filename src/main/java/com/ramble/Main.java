@@ -22,7 +22,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
 @EnableAgents
-class Main {
+public class Main {
     public static void main(String[] args) {
         SpringApplication.run(Main.class, args);
     }
