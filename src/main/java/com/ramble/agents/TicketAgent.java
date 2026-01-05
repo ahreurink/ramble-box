@@ -1,5 +1,9 @@
 package com.ramble.agents;
 
+import com.embabel.agent.api.annotation.AchievesGoal;
+import com.embabel.agent.api.annotation.Action;
+import com.embabel.agent.api.annotation.Agent;
+import com.embabel.agent.api.annotation.Export;
 import com.embabel.agent.api.common.Ai;
 import com.embabel.agent.api.common.PromptRunner;
 import com.embabel.agent.core.CoreToolGroups;
@@ -26,7 +30,7 @@ abstract class TicketPersonas {
 /**
  * Ticket agent
  */
-@Component
+@Agent(description = "Write cohesive ticket and post to Github")
 public class TicketAgent {
     Logger logger = LoggerFactory.getLogger(TicketAgent.class);
 
@@ -54,6 +58,10 @@ public class TicketAgent {
 
     private final String repo = "repo=ahreurink/ramble-box";
 
+    @AchievesGoal(
+        description = "The ramble has been refined into a coherent story",
+        export = @Export(remote = true, name = "createTicket"))
+    @Action
     public Ticket createTicket(UserInput ramble) {
         return getPromptRunner()
             .createObject(String.format(getDraftTicketPrompt(), ramble.getContent()),
@@ -71,6 +79,10 @@ public class TicketAgent {
         logger.info("Ticket list = \"{}\"", response);
     }
 
+    @Action
+    @AchievesGoal(
+        description = "The story is posted to GitHub",
+        export = @Export(remote = true, name = "postTicket"))
     public Boolean postTicket(Ticket ticket) {
         Boolean succeeded = getPromptRunner()
             .withToolGroup(CoreToolGroups.GITHUB) //Now use "issue_write" mcp tool to create the ticket.
