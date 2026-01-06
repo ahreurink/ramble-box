@@ -8,41 +8,42 @@
 
 name: Build
 
-runs:
-    using: "docker"
-    image: "Dockerfile"
-    args:
-        - ${{ inputs.arg1 }}
-inputs:
-    arg1:
-        required: false
+#runs:
+#    using: "docker"
+#    image: "Dockerfile"
+#    args:
+#        - ${{ inputs.arg1 }}
+#inputs:
+#    arg1:
+#        required: false
 
-#on:
-#  push:
-#  pull_request:
-#    types: [ opened, synchronize, reopened ]
-#
-#jobs:
-#  build:
-#
-#    runs-on: ubuntu-latest
-#
-#    steps:
-#      - uses: actions/checkout@v5
-#      - name: Set up JDK 21
-#        uses: actions/setup-java@v5
-#        with:
-#          java-version: '25'
-#          distribution: 'temurin'
-#          cache: maven
-#      - name: Configure Testcontainers
-#        run: |
-#          apt install nodejs
-#          npm install -g @angular/cli
-#          mkdir -p /home/runner
-#          echo "testcontainers.reuse.enable=true" > /home/runner/.testcontainers.properties
-#      - name: Build and analyze
-#        env:
-#          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
-#          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-#        run: mvn -U -B test verify
+on:
+  push:
+  pull_request:
+    types: [ opened, synchronize, reopened ]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v5
+      - name: Set up JDK 21
+        uses: actions/setup-java@v5
+        with:
+          java-version: '25'
+          distribution: 'temurin'
+          cache: maven
+      - name: Configure Testcontainers
+        run: |
+          sudo apt-get update
+          sudo apt install nodejs
+          npm install -g @angular/cli
+          mkdir -p /home/runner
+          echo "testcontainers.reuse.enable=true" > /home/runner/.testcontainers.properties
+      - name: Build and analyze
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+        run: mvn -U -B test verify
