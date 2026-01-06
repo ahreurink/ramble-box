@@ -36,6 +36,6 @@ jobs:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         run: |
           sudo apt-get update
-          sudo apt install nodejs
+          sudo apt install nodejs npm
           npm install -g @angular/cli
           mvn -U -B test verify
