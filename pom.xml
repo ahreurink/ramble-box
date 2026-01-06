@@ -104,8 +104,8 @@
                         <configuration>
                             <executable>bash</executable>
                             <arguments>
-                                <argument>../../../scripts/build-angular.sh</argument>
-                                <argument>${project.basedir}</argument>
+                                <argument>-c</argument>
+                                <argument>ng build --output-path ${project.basedir}/target</argument>
                             </arguments>
                             <workingDirectory>${project.basedir}/src/main/angular</workingDirectory>
                         </configuration>
