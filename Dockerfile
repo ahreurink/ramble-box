@@ -5,8 +5,11 @@ FROM maven:3.9.12-eclipse-temurin-25-alpine AS build-base
 
 ARG OPENAI_API_KEY
 
-RUN apk add docker
+#RUN apk add docker
 
+RUN apk add nodejs npm
+RUN npm install -g @angular/cli
+RUN mvn -U -B test verify
 #COPY embabel /root/.m2/repository/com/embabel
 ##COPY m2 /root/.m2
 
