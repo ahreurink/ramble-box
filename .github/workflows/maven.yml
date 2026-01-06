@@ -8,15 +8,6 @@
 
 name: Build
 
-#runs:
-#    using: "docker"
-#    image: "Dockerfile"
-#    args:
-#        - ${{ inputs.arg1 }}
-#inputs:
-#    arg1:
-#        required: false
-
 on:
   push:
   pull_request:
@@ -37,13 +28,14 @@ jobs:
           cache: maven
       - name: Configure Testcontainers
         run: |
-          sudo apt-get update
-          sudo apt install nodejs
-          npm install -g @angular/cli
           mkdir -p /home/runner
           echo "testcontainers.reuse.enable=true" > /home/runner/.testcontainers.properties
       - name: Build and analyze
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-        run: mvn -U -B test verify
+        run: |
+          sudo apt-get update
+          sudo apt install nodejs
+          npm install -g @angular/cli
+          mvn -U -B test verify
