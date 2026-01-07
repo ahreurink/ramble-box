@@ -39,9 +39,10 @@ jobs:
       - name : Prepare Angular
         run: |
           npm install --verbose --include=dev --prefix src/main/angular
-            bash -c "ng --version"
+          exec bash
+          ng --version
       - name: Build and analyze
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-        run: bash -c "./mvnw -U -B test verify"
+        run: ./mvnw -U -B test verify
