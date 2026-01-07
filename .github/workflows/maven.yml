@@ -32,13 +32,13 @@ jobs:
           echo "testcontainers.reuse.enable=true" > /home/runner/.testcontainers.properties
       - name : Prepare Angular
         run: |
-          cd src/main/angular
+          sudo cd src/main/angular
           sudo apt-get update
           sudo apt install nodejs npm
-          npm install -g @angular/build @angular/cli @angular-devkit/build-angular
-          npm ls @angular/build
-          cd ../../..
-          mvn -U -B test verify
+          sudo npm install -g @angular/build @angular/cli @angular-devkit/build-angular
+          sudo npm ls @angular/build
+          sudo cd ../../..
+          sudo mvn -U -B test verify
       - name : Prepare Angular
         run: npm ls @angular/build
       - name: Build and analyze
