@@ -30,13 +30,12 @@ jobs:
         run: |
           mkdir -p /home/runner
           echo "testcontainers.reuse.enable=true" > /home/runner/.testcontainers.properties
-      - name : Install Apt dependencies
-        run: |
-          sudo apt-get update
-          sudo apt install nodejs npm
-      - name : Update npm
-        run: npm install npm@11.7.0
       - name : Prepare Angular
+        uses: actions/setup-node@v4
+        with:
+            node-version: '22'
+            cache: 'npm'
+      - name : Install Angular
         run: |
           npm install --verbose --include=dev --prefix src/main/angular
           env
