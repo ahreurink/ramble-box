@@ -34,16 +34,14 @@ jobs:
         run: |
           sudo apt-get update
           sudo apt install nodejs npm
-          npm install -g npm@11.7.0
-          sudo npm install -g @angular/build @angular/cli @angular-devkit/build-angular
-          sudo npm ls @angular/build
-          sudo mvn -U -B test verify
       - name : Prepare Angular
-        run: npm ls @angular/build
+        run: |
+          npm install -g npm@11.7.0
+          npm install -g @angular/build @angular/cli @angular-devkit/build-angular
+          npm ls @angular/build
       - name: Build and analyze
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         run: |
-          npm ls @angular/build
           mvn -U -B test verify
