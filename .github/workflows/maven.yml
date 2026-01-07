@@ -34,9 +34,10 @@ jobs:
         run: |
           sudo apt-get update
           sudo apt install nodejs npm
-      - name : Prepare Angular
-        run: |
           sudo npm install -g npm@11.7.0
+      - name : Prepare Angular
+        run:
+          su root
           npm --version
           npm install --verbose -g @angular/build @angular/cli @angular-devkit/build-angular
           npm ls @angular/build
