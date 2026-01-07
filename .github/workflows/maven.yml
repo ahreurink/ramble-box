@@ -35,8 +35,12 @@ jobs:
           sudo apt-get update
           sudo apt install nodejs npm
           npm install -g @angular/build @angular/cli @angular-devkit/build-angular
+      - name : Prepare Angular
+        run: npm ls @angular/build
       - name: Build and analyze
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-        run: mvn -U -B test verify
+        run: |
+          npm ls @angular/build
+          mvn -U -B test verify
