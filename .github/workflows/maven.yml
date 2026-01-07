@@ -38,7 +38,7 @@ jobs:
         run: npm install npm@11.7.0
       - name : Prepare Angular
         run: |
-          npm install --verbose -g --include=dev --prefix src/main/angular
+          npm install --verbose --include=dev --prefix src/main/angular
           ng --version
       - name: Build and analyze
         env:
