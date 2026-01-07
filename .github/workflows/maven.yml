@@ -37,10 +37,10 @@ jobs:
           sudo npm install npm@11.7.0
       - name : Prepare Angular
         run:
-          npm install --verbose @angular/build @angular/cli
+          sudo npm install --verbose @angular/build @angular/cli
       - name: Build and analyze
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         run: |
-          mvn -U -B test verify
+          sudo mvn -U -B test verify
