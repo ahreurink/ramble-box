@@ -34,10 +34,10 @@ jobs:
         run: |
           sudo apt-get update
           sudo apt install nodejs npm
-          sudo npm install -g npm@11.7.0
+          sudo npm install npm@11.7.0
       - name : Prepare Angular
         run:
-          npm install --verbose -g @angular/build @angular/cli @angular-devkit/build-angular
+          npm install --verbose @angular/build @angular/cli @angular-devkit/build-angular
       - name: Build and analyze
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
