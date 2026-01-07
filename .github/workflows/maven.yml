@@ -37,7 +37,9 @@ jobs:
       - name : Update npm
         run: npm install npm@11.7.0
       - name : Prepare Angular
-        run: cd src/main/angular && npm install --verbose --dev && cd ../../..
+        run: |
+          cd src/main/angular && npm install --verbose --dev && cd ../../..
+          ng --version
       - name: Build and analyze
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
