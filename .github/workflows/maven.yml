@@ -37,7 +37,8 @@ jobs:
       - name : Prepare Angular
         run: |
           sudo npm install -g npm@11.7.0
-          npm install -g @angular/build @angular/cli @angular-devkit/build-angular
+          npm --version
+          npm install --verbose -g @angular/build @angular/cli @angular-devkit/build-angular
           npm ls @angular/build
       - name: Build and analyze
         env:
