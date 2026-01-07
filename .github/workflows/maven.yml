@@ -34,12 +34,12 @@ jobs:
         run: |
           sudo apt-get update
           sudo apt install nodejs npm
-#      - name : Update npm
-#        run: npm install npm@11.7.0
+      - name : Update npm
+        run: npm install npm@11.7.0
       - name : Prepare Angular
-        run: cd src/main/angular && npm install --verbose && cd ../../..
+        run: cd src/main/angular && npm install --verbose --dev && cd ../../..
       - name: Build and analyze
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-        run: mvn -U -B test verify
+        run: ./mvnw -U -B test verify
