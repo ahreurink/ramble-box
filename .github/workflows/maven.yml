@@ -35,6 +35,7 @@ jobs:
         with:
             node-version: '22'
             cache: 'npm'
+            cache-dependency-path: src/main/angular/package-lock.json
       - name : Install Angular
         run: |
           npm install --verbose --include=dev --prefix src/main/angular
