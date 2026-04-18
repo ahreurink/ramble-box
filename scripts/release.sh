@@ -2,7 +2,7 @@ DOCKER_IMAGE=ramble-box:latest-$(date +%Y-%m-%d_%H-%M-%S)
 DOCKER_IMAGE_FILE=ramble-box.latest.tar
 DOCKER_CONTAINER=ramble-box
 
-SSH_COMMAND="ssh $RB_USER@$RB_HOST"
+SSH_COMMAND="ssh EC"
 
 mvn -DskipTests clean package
 docker build --tag $DOCKER_IMAGE .
@@ -14,7 +14,7 @@ echo Stopping and deleting container $DOCKER_CONTAINER
 $SSH_COMMAND docker stop $DOCKER_CONTAINER
 
 echo Loading $DOCKER_IMAGE_FILE
-ssh $RB_USER@$RB_HOST docker load -i $DOCKER_IMAGE_FILE
+$SSH_COMMAND docker load -i $DOCKER_IMAGE_FILE
 
 $SSH_COMMAND docker run -d \
   --name $DOCKER_CONTAINER \
